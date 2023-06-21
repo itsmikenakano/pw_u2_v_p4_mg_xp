@@ -1,8 +1,7 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <Contador titulo="Estudiante" valor2="2"/>
-  <Contador titulo="Profesor" valor2="7"/>
-  <Contador titulo="test Titulo" valor2="7"/>
+  <Contador titulo="Estudiante" v-bind:inicio="400+2"/>
+  <Contador titulo="Profesor" :inicio="101"/>
 </template>
 
 <script>
