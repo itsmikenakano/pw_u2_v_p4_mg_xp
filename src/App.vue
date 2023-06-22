@@ -1,15 +1,16 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <Contador titulo="Estudiante" v-bind:inicio="400+2"/>
-  <Contador titulo="Profesor" :inicio="101"/>
+  <CaracolaMagica/>
 </template>
 
 <script>
+import CaracolaMagicaVue from './components/CaracolaMagica.vue';
 import Contador from "./components/Contador.vue";
+import CaracolaMagica from "./components/CaracolaMagica.vue"
 export default {
   name: "App",
   components: {
     Contador,
+    CaracolaMagica
   },
 };
 </script>
@@ -22,5 +23,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+
 }
 </style>
