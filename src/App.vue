@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import CaracolaMagicaVue from './components/CaracolaMagica.vue';
 import Contador from "./components/Contador.vue";
 import CaracolaMagica from "./components/CaracolaMagica.vue"
 export default {

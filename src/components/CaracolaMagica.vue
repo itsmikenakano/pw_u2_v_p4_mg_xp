@@ -1,26 +1,84 @@
 <template>
   <h1>Caracola Magica</h1>
-  <img
-    src="https://images.unsplash.com/photo-1580611275653-e2b84d93e2d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=873&q=80"
-    alt="No se puede cargar la imagen"
-  />
+  <img v-if="urlImagen" :src="urlImagen" alt="No se puede cargar la imagen" />
 
-  <input v-model="pregunta" type="text" placeholder="Hazme una pregunta" />
-  <p>Tecuerda terminar con un enter la pregunta</p>
+  <div class="bg-dark"></div>
 
-  <div>
-    <h2>Voy a pasar de año?</h2>
-    <h1>SI, NO</h1>
+  <div class="contenedor">
+    <input v-model="pregunta" type="text" placeholder="Hazme una pregunta" />
+    <p>Recuerda terminar con un signo de pregunta</p>
+
+    <div>
+      <h2>{{ pregunta }}</h2>
+      <h1>{{ respuesta }}</h1>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    pregunta: "Hola Mundo";
+    return {
+      pregunta: "Hola Mundo",
+      respuesta: "",
+      urlImagen: null,
+    };
+  },
+  watch: {
+    pregunta(value, oldValue) {
+      console.log(value);
+      console.log(oldValue);
+      if (value.includes("?")) {
+        this.consumirAPI();
+      }
+    },
+  },
+  methods: {
+    async consumirAPI() {
+      const respuesta = await fetch("https://yesno.wtf/api").then((r) =>
+        r.json()
+      );
+      const { answer, image } = respuesta;
+      this.respuesta = answer;
+      this.urlImagen = image;
+    },
   },
 };
 </script>
 
 <style>
+img, .bg-dark {
+  height: 100vh;
+  width: 100vw;
+  left: 0px;
+  max-height: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0px;
+}
+
+.bg-dark {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.contenedor {
+  position: relative;
+}
+
+input {
+  width: 250px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+}
+
+p, h1, h2 {
+  color:white;
+}
+
+p {
+  font-size: 20px;
+  margin-top: 0px;
+}
+
 </style>
