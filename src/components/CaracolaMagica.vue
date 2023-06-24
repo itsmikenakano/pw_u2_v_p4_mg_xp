@@ -28,8 +28,11 @@ export default {
     pregunta(value, oldValue) {
       console.log(value);
       console.log(oldValue);
+
       if (value.includes("?")) {
+        this.respuesta = "Pensando...";
         this.consumirAPI();
+        this.pregunta = "";
       }
     },
   },
@@ -47,7 +50,8 @@ export default {
 </script>
 
 <style>
-img, .bg-dark {
+img,
+.bg-dark {
   height: 100vh;
   width: 100vw;
   left: 0px;
@@ -72,13 +76,14 @@ input {
   border: none;
 }
 
-p, h1, h2 {
-  color:white;
+p,
+h1,
+h2 {
+  color: white;
 }
 
 p {
   font-size: 20px;
   margin-top: 0px;
 }
-
 </style>
