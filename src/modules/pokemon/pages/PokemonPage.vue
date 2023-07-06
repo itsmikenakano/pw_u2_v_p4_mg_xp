@@ -1,9 +1,13 @@
 <template>
+<h1 v-if="!pokemonCorrecto">Espere por favor....</h1>
+
+<div v-else>
   <h1>Juego Pokemon</h1>
 
-  <PokemonImg :pokemonId="7" :muestraPokemon="false" />
+  <PokemonImg  :pokemonId="pokemonCorrecto.id" :muestraPokemon="showPokemon" />
 
-  <PokemonOps :opciones="arreglo"/>
+  <PokemonOps :opciones="pokemonArr" @seleccionado="revisarSeleccion($event)" />
+  </div>
 </template>
 
 <script>
@@ -20,15 +24,31 @@ export default {
   },
   data(){
     return{
-      arreglo:[]
+      pokemonArr:[],
+      pokemonCorrecto: null,
+      showPokemon: false
     }
   },
   methods: {
     async cargaJuegoInicial() {
       const arregloPokemons=await obtenerFachadaPokemons();
-      this.arreglo=arregloPokemons
+      this.pokemonArr=arregloPokemons
       console.log(arregloPokemons)
+      const indicePokemon = Math.floor(Math.random()*4)
+      this.pokemonCorrecto = this.pokemonArr[indicePokemon]
     },
+    revisarSeleccion(idSeleccionado){
+      console.log("Evento del padre")
+      console.log(idSeleccionado)
+
+      if(idSeleccionado==this.pokemonCorrecto.id){
+        this.showPokemon=true
+        console.log("Felicitaciones")
+      }else{
+        this.showPokemon=false
+        console.log("Error")
+      }
+    }
   },
   mounted() {
     console.log("Se monto el componente");
